@@ -25,77 +25,54 @@ public class Range {
         this.to = to;
     }
 
-    public double getRangeLength() {
-        return Math.abs(from - to);
+    public double getLength() {
+        return to - from;           // from  > to (always)
     }
 
     public boolean isInside(double number) {
-        return !(number < from) && !(number > to);
+        return number >= from && number <= to;
     }
 
-    public Range getRangeIntersection(Range range) {
-        if (range.from <= this.to && range.to >= this.from) {
-            if (this.from >= range.from && this.to <= range.to) {
-                return new Range(this.from, this.to);
-            } else if (this.from >= range.from && this.to >= range.to) {
-                return new Range(this.from, range.to);
-            } else if (this.from <= range.from && this.to <= range.to) {
-                return new Range(range.from, this.to);
-            } else if (this.from <= range.from && this.to >= range.to) {
-                return new Range(range.from, range.to);
-            }
+    public Range getIntersection(Range range) {
+        double max = Math.max(range.from, from);
+        double min = Math.min(range.to, to);
+
+        if (max < min) {
+            return new Range(max, min);
         }
 
         return null;
     }
 
-    public Range[] getRangeUnion(Range range) {
-        if (range.from <= this.to && range.to >= this.from) {
-            double minFrom = Math.min(range.from, this.from);
-            double minTo = Math.min(range.to, this.to);
-            double smallest = Math.min(minFrom, minTo);
+    public Range[] getUnion(Range range) {
+        if (range.from <= to && range.to >= from) {
+            double minFrom = Math.min(range.from, from);
+            double maxTo = Math.max(range.to, to);
 
-            double maxFrom = Math.max(range.from, this.from);
-            double maxTo = Math.max(range.to, this.to);
-            double largest = Math.max(maxFrom, maxTo);
-
-            Range[] rangesArray = new Range[1];
-            rangesArray[0] = new Range(smallest, largest);
-
-            return rangesArray;
-        } else {
-            Range[] rangesArray = new Range[2];
-            rangesArray[0] = new Range(range.from, range.to);
-            rangesArray[1] = new Range(this.from, this.to);
-
-            return rangesArray;
+            return new Range[]{new Range(minFrom, maxTo)};
         }
+
+        return new Range[]{new Range(range.from, range.to), new Range(from, to)};
     }
 
-    public Range[] getRangeRemainder(Range range) {
-        if (range.from <= this.to && range.to >= this.from) {
-            if (this.from > range.from && this.to < range.to) {
-                Range[] rangesArray = new Range[2];
-                rangesArray[0] = new Range(range.from, this.from);
-                rangesArray[1] = new Range(this.to, range.to);
+    public Range[] getDifference(Range range) {
+        double max = Math.max(range.from, from);
+        double min = Math.min(range.to, to);
 
-                return rangesArray;
-            } else if (this.from > range.from && this.to > range.to) {
-                Range[] rangesArray = new Range[1];
-                rangesArray[0] = new Range(range.from, this.from);
-
-                return rangesArray;
-            } else if (this.from < range.from && this.to < range.to) {
-                Range[] rangesArray = new Range[1];
-                rangesArray[0] = new Range(this.to, range.to);
-
-                return rangesArray;
-            } else if (this.from < range.from && this.to > range.to) {
-                return new Range[0];
-            } else if (this.from == range.from && range.to == this.to) {
-                return new Range[3]; // Здесь длина массива 3 имеет смысл метки для вывода.
+        if (max < min) {
+            if (range.to <= min && range.from >= max) {
+                return new Range[]{new Range(from, max), new Range(min, to)};
             }
+            if (range.from >= max && range.to >= min) {
+                return new Range[]{new Range(from, max)};
+            }
+            if (range.from <= max && range.to <= min) {
+                return new Range[]{new Range(min, to)};
+            }
+
+            return new Range[]{};
         }
+
         return null;
     }
 }
