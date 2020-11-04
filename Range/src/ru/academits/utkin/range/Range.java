@@ -56,23 +56,23 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        double max = Math.max(range.from, from);
-        double min = Math.min(range.to, to);
-
-        if (max < min) {
-            if (range.to <= min && range.from >= max) {
-                return new Range[]{new Range(from, max), new Range(min, to)};
-            }
-            if (range.from >= max && range.to >= min) {
-                return new Range[]{new Range(from, max)};
-            }
-            if (range.from <= max && range.to <= min) {
-                return new Range[]{new Range(min, to)};
-            }
-
+        if (range.from > to || from > range.to) {
+            return new Range[]{new Range(from, to)};
+        }
+        if (from < range.from && to > range.to) {
+            return new Range[]{new Range(from, range.from), new Range(range.to, to)};
+        }
+        if (from >= range.from && to <= range.to) {
             return new Range[]{};
         }
+        if (from <= range.from && to <= range.to) {
+            return new Range[]{new Range(from, range.from)};
+        }
 
-        return null;
+        return new Range[]{new Range(range.to, to)};
+    }
+
+    public void print() {
+        System.out.printf("(%.2f, %.2f)", from, to);
     }
 }
