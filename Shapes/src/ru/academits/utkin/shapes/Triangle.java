@@ -1,12 +1,12 @@
 package ru.academits.utkin.shapes;
 
 public class Triangle implements Shape {
-    private double x1;
-    private double y1;
-    private double x2;
-    private double y2;
-    private double x3;
-    private double y3;
+    private final double x1;
+    private final double y1;
+    private final double x2;
+    private final double y2;
+    private final double x3;
+    private final double y3;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         this.x1 = x1;
@@ -17,18 +17,27 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
+    public double getWidthEitherHeight(double coordinate1, double coordinate2, double coordinate3) {
+        double max = Math.max(coordinate1, coordinate2);
+        double maximum = Math.max(max, coordinate3);
+        double min = Math.min(coordinate1, coordinate2);
+        double minimum = Math.min(min, coordinate3);
+
+        return maximum - minimum;
+    }
+
+    public double getLengthSide(double X1, double X2, double Y1, double Y2) {
+        return Math.sqrt(Math.pow(X1 - X2, 2) + Math.pow(Y1 - Y2, 2));
+    }
+
     @Override
     public double getWidth() {
-        double max = Math.max(x1, x2);
-
-        return Math.max(max, x3);
+        return getWidthEitherHeight(x1, x2, x3);
     }
 
     @Override
     public double getHeight() {
-        double min = Math.min(y1, y2);
-
-        return Math.min(min, y3);
+        return getWidthEitherHeight(y1, y2, y3);
     }
 
     @Override
@@ -38,31 +47,34 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        double side1 = Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
-        double side2 = Math.sqrt(Math.pow(Math.abs(x2 - x3), 2) + Math.pow(Math.abs(y2 - y3), 2));
-        double side3 = Math.sqrt(Math.pow(Math.abs(x1 - x3), 2) + Math.pow(Math.abs(y1 - y3), 2));
-
-        return side1 + side2 + side3;
+        return getLengthSide(x1, x2, y1, y2) + getLengthSide(x2, x3, y2, y3) + getLengthSide(x1, x3, y1, y3);
     }
 
     @Override
     public String toString() {
-        return "треугольник c площадью" + " " + getArea() + " и периметром = " + getPerimeter();
+        return "[Треугольник площадью " + getArea() + " c периметром = " + getPerimeter() + ", высотой = " + getHeight() + ", шириной = " + getWidth() + "]";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (o == null || o.getClass() != this.getClass()) return false;
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
         Triangle triangle = (Triangle) o;
 
         return x1 == triangle.x1 && x2 == triangle.x2 && x3 == triangle.x3 && y1 == triangle.y1 && y2 == triangle.y2 && y3 == triangle.y3;
     }
 
+
     @Override
     public int hashCode() {
         final int prime = 43;
         int hash = 1;
+
         hash = prime * hash + Double.hashCode(x1);
         hash = prime * hash + Double.hashCode(x2);
         hash = prime * hash + Double.hashCode(x3);

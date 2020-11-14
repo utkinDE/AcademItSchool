@@ -1,7 +1,7 @@
 package ru.academits.utkin.shapes;
 
 public class Circle implements Shape {
-    private double radius;
+    private final double radius;
 
     public Circle(double radius) {
         this.radius = radius;
@@ -29,13 +29,18 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "круг c площадью" + " " + getArea() + " и периметром = " + getPerimeter();
+        return "[Круг площадью " + getArea() + " c периметром = " + getPerimeter() + ", высотой = " + getHeight() + ", шириной = " + getWidth() + "]";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (o == null || o.getClass() != this.getClass()) return false;
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+
         Circle circle = (Circle) o;
 
         return radius == circle.radius;
@@ -45,6 +50,7 @@ public class Circle implements Shape {
     public int hashCode() {
         final int prime = 41;
         int hash = 1;
+
         hash = prime * hash + Double.hashCode(radius);
 
         return hash;

@@ -1,8 +1,8 @@
 package ru.academits.utkin.shapes;
 
 public class Rectangle implements Shape {
-    private double width;
-    private double height;
+    private final double width;
+    private final double height;
 
     public Rectangle(double width, double height) {
         this.width = width;
@@ -31,13 +31,18 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "прямоугольник c площадью" + " " + getArea() + " и периметром = " + getPerimeter();
+        return "[Прямоугольник площадью " + getArea() + " c периметром = " + getPerimeter() + ", высотой = " + getHeight() + ", шириной = " + getWidth() + "]";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (o == null || o.getClass() != this.getClass()) return false;
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
         Rectangle rectangle = (Rectangle) o;
 
         return width == rectangle.width && height == rectangle.height;
@@ -47,6 +52,7 @@ public class Rectangle implements Shape {
     public int hashCode() {
         final int prime = 53;
         int hash = 1;
+
         hash = prime * hash + Double.hashCode(width);
         hash = prime * hash + Double.hashCode(height);
 
