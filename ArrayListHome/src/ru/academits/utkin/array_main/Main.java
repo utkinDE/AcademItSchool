@@ -3,36 +3,58 @@ package ru.academits.utkin.array_main;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<Integer> numbersList = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new FileInputStream("ArrayListHome/src/ru/academits/utkin/array_main/input.txt"))) {
-            while (scanner.hasNextInt()) {
-                numbersList.add(scanner.nextInt());
-            }
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
 
-            System.out.println(numbersList);
+        try {
+            System.out.println(getListFromFile(list));
+        } catch (FileNotFoundException exception) {
+            System.out.println("Файл не найден!");
         }
 
-        for (int i = 0; i < numbersList.size(); ++i) {
-            if (numbersList.get(i) % 2 == 0) {
-                numbersList.remove(i);
+        ArrayList<Integer> listNumbers1 = new ArrayList<>(Arrays.asList(2, 3, 8, 11, 3, 45, 6, 0));
+
+        System.out.println("Список без чётных элементов: " + getListOddNumbers(listNumbers1));
+
+        ArrayList<Integer> listNumbers2 = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
+
+        System.out.println("Список без повторяющихся элементов: " + getListWithoutClones(listNumbers2));
+    }
+
+    public static ArrayList<String> getListFromFile(ArrayList<String> strings) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new FileInputStream("ArrayListHome/src/ru/academits/utkin/array_main/input.txt"));
+
+        while (scanner.hasNext()) {
+            strings.add(scanner.nextLine());
+        }
+
+        return strings;
+    }
+
+    public static ArrayList<Integer> getListOddNumbers(ArrayList<Integer> numbers) throws IllegalArgumentException {
+        for (int i = 0; i < numbers.size(); ++i) {
+            if (numbers.get(i) % 2 == 0) {
+                numbers.remove(i);
                 i--;
             }
         }
 
-        System.out.println(numbersList);
+        return numbers;
+    }
 
-        ArrayList<Integer> withOutClonesList = new ArrayList<>();
-        for (int x : numbersList) {
-            boolean hasClones = withOutClonesList.contains(x);
-            if (!hasClones) {
-                withOutClonesList.add(x);
+    public static ArrayList<Integer> getListWithoutClones(ArrayList<Integer> numbers) {
+        ArrayList<Integer> listWithoutClones = new ArrayList<>(numbers.size());
+
+        for (Integer number : numbers) {
+            if (!listWithoutClones.contains(number)) {
+                listWithoutClones.add(number);
             }
         }
 
-        System.out.println(withOutClonesList);
+        return listWithoutClones;
     }
 }
