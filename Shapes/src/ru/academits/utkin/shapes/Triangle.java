@@ -1,12 +1,12 @@
 package ru.academits.utkin.shapes;
 
 public class Triangle implements Shape {
-    private final double x1;
-    private final double y1;
-    private final double x2;
-    private final double y2;
-    private final double x3;
-    private final double y3;
+    private double x1;
+    private double y1;
+    private double x2;
+    private double y2;
+    private double x3;
+    private double y3;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         this.x1 = x1;
@@ -17,27 +17,70 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    public double getWidthEitherHeight(double coordinate1, double coordinate2, double coordinate3) {
-        double max = Math.max(coordinate1, coordinate2);
-        double maximum = Math.max(max, coordinate3);
-        double min = Math.min(coordinate1, coordinate2);
-        double minimum = Math.min(min, coordinate3);
-
-        return maximum - minimum;
+    public double getX1(double x1) {
+        return x1;
     }
 
-    public double getLengthSide(double X1, double X2, double Y1, double Y2) {
-        return Math.sqrt(Math.pow(X1 - X2, 2) + Math.pow(Y1 - Y2, 2));
+    public double getY1(double y1) {
+        return y1;
+    }
+
+    public double getX2(double x2) {
+        return x2;
+    }
+
+    public double getY2(double y2) {
+        return y2;
+    }
+
+    public double getX3(double x3) {
+        return x3;
+    }
+
+    public double getY3(double y3) {
+        return y3;
+    }
+
+    public void setX1(double x1) {
+        this.x1 = x1;
+    }
+
+    public void setY1(double y1) {
+        this.y1 = y1;
+    }
+
+    public void setX2(double x2) {
+        this.x2 = x2;
+    }
+
+    public void setY2(double y2) {
+        this.y2 = y2;
+    }
+
+    public void setX3(double x3) {
+        this.x3 = x3;
+    }
+
+    public void setY3(double y3) {
+        this.y3 = y3;
+    }
+
+    public double getDifferenceBetweenMaxAndMin(double coordinate1, double coordinate2, double coordinate3) {
+        return Math.max(coordinate3, Math.max(coordinate1, coordinate2)) - Math.min(coordinate3, Math.min(coordinate1, coordinate2));
+    }
+
+    public double getSideLength(double x1, double x2, double y1, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
     @Override
     public double getWidth() {
-        return getWidthEitherHeight(x1, x2, x3);
+        return getDifferenceBetweenMaxAndMin(x1, x2, x3);
     }
 
     @Override
     public double getHeight() {
-        return getWidthEitherHeight(y1, y2, y3);
+        return getDifferenceBetweenMaxAndMin(y1, y2, y3);
     }
 
     @Override
@@ -47,7 +90,7 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        return getLengthSide(x1, x2, y1, y2) + getLengthSide(x2, x3, y2, y3) + getLengthSide(x1, x3, y1, y3);
+        return getSideLength(x1, x2, y1, y2) + getSideLength(x2, x3, y2, y3) + getSideLength(x1, x3, y1, y3);
     }
 
     @Override
@@ -60,6 +103,7 @@ public class Triangle implements Shape {
         if (o == this) {
             return true;
         }
+
         if (o == null || o.getClass() != getClass()) {
             return false;
         }

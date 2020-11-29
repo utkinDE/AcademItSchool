@@ -24,5 +24,10 @@ public class Main {
         Arrays.sort(shapes, new PerimeterComparator());
 
         System.out.println("Фигура со вторым по величине периметром это " + shapes[shapes.length - 2]); // Неявный вызов toString
+
+        System.out.println("Список всех фигур: ");
+        for (Shape e : shapes) {
+            System.out.println(e);
+        }
     }
 }
