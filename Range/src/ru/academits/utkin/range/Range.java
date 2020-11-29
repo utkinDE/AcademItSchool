@@ -73,6 +73,6 @@ public class Range {
     }
 
     public void print() {
-        System.out.printf("(%.2f, %.2f)", from, to);
+        System.out.printf("(%.2f, %.2f)%n", from, to);
     }
 }

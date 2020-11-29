@@ -5,7 +5,7 @@ import ru.academits.utkin.range.Range;
 public class Main {
     public static void main(String[] args) {
         Range range1 = new Range(2, 5);
-        Range range2 = new Range(2, 5);
+        Range range2 = new Range(3, 7);
         double rangeNumber = 3;
 
         System.out.printf("Длина диапазона 1 = %.2f;%nДлина диапазона 2 = %.2f.%n", range1.getLength(), range2.getLength());
@@ -15,7 +15,9 @@ public class Main {
         if (intersection == null) {
             System.out.println("NULL, пересечений нет");
         } else {
-            System.out.printf("Пересечение диапазонов даёт (%.2f, %.2f)%n", intersection.getFrom(), intersection.getTo());
+
+            System.out.print("Пересечение диапазонов даёт: ");
+            intersection.print();
         }
 
         Range[] difference = range1.getDifference(range2);
@@ -28,7 +30,6 @@ public class Main {
         }
 
         Range[] union = range1.getUnion(range2);
-        System.out.println();
         System.out.print("Объединение диапазонов даёт: ");
 
         for (Range range : union) {
