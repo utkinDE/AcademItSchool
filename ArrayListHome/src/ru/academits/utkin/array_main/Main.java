@@ -8,53 +8,55 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList<>();
+        String fileName = "input.txt";
 
         try {
-            System.out.println(getListFromFile(list));
+            System.out.println(getStringsFromFile(fileName));
         } catch (FileNotFoundException exception) {
             System.out.println("Файл не найден!");
         }
 
-        ArrayList<Integer> listNumbers1 = new ArrayList<>(Arrays.asList(2, 3, 8, 11, 3, 45, 6, 0));
+        ArrayList<Integer> numbersList = new ArrayList<>(Arrays.asList(2, 3, 8, 11, 3, 45, 6, 0));
 
-        System.out.println("Список без чётных элементов: " + getListOddNumbers(listNumbers1));
+        oddNumbersList(numbersList);
 
-        ArrayList<Integer> listNumbers2 = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
+        System.out.println("Список без чётных элементов: " + numbersList);
 
-        System.out.println("Список без повторяющихся элементов: " + getListWithoutClones(listNumbers2));
+        ArrayList<Integer> numbersListWithClones = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
+
+        System.out.println("Список без повторяющихся элементов: " + getListWithoutClones(numbersListWithClones));
     }
 
-    public static ArrayList<String> getListFromFile(ArrayList<String> strings) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new FileInputStream("ArrayListHome/src/ru/academits/utkin/array_main/input.txt"));
+    public static ArrayList<String> getStringsFromFile(String fileName) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new FileInputStream("ArrayListHome/src/ru/academits/utkin/array_main/" + fileName));
 
-        while (scanner.hasNext()) {
-            strings.add(scanner.nextLine());
+        ArrayList<String> list = new ArrayList<>();
+
+        while (scanner.hasNextLine()) {
+            list.add(scanner.nextLine());
         }
 
-        return strings;
+        return list;
     }
 
-    public static ArrayList<Integer> getListOddNumbers(ArrayList<Integer> numbers) throws IllegalArgumentException {
+    public static void oddNumbersList(ArrayList<Integer> numbers) {
         for (int i = 0; i < numbers.size(); ++i) {
             if (numbers.get(i) % 2 == 0) {
                 numbers.remove(i);
                 i--;
             }
         }
-
-        return numbers;
     }
 
-    public static ArrayList<Integer> getListWithoutClones(ArrayList<Integer> numbers) {
-        ArrayList<Integer> listWithoutClones = new ArrayList<>(numbers.size());
+    public static ArrayList<Integer> getListWithoutClones(ArrayList<Integer> numbersList) {
+        ArrayList<Integer> numbersListWithoutClones = new ArrayList<>(numbersList.size());
 
-        for (Integer number : numbers) {
-            if (!listWithoutClones.contains(number)) {
-                listWithoutClones.add(number);
+        for (Integer number : numbersList) {
+            if (!numbersListWithoutClones.contains(number)) {
+                numbersListWithoutClones.add(number);
             }
         }
 
-        return listWithoutClones;
+        return numbersListWithoutClones;
     }
 }
