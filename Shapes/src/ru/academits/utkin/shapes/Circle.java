@@ -1,14 +1,13 @@
 package ru.academits.utkin.shapes;
 
 public class Circle implements Shape {
-
     private double radius;
 
     public Circle(double radius) {
         this.radius = radius;
     }
 
-    public double getRadius(double radius) {
+    public double getRadius() {
         return radius;
     }
 
@@ -38,7 +37,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "[Круг радиусом " + getRadius(radius) + " площади " + getArea() + " c длиной окружности = " + getPerimeter() + "]";
+        return "[Круг радиусом " + getRadius() + " площади " + getArea() + " c периметром = " + getPerimeter() + "]";
     }
 
     @Override

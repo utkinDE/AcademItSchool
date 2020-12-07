@@ -17,59 +17,60 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    public double getX1(double x1) {
+    public double getX1() {
         return x1;
-    }
-
-    public double getY1(double y1) {
-        return y1;
-    }
-
-    public double getX2(double x2) {
-        return x2;
-    }
-
-    public double getY2(double y2) {
-        return y2;
-    }
-
-    public double getX3(double x3) {
-        return x3;
-    }
-
-    public double getY3(double y3) {
-        return y3;
     }
 
     public void setX1(double x1) {
         this.x1 = x1;
     }
 
+    public double getY1() {
+        return y1;
+    }
+
     public void setY1(double y1) {
         this.y1 = y1;
+    }
+
+    public double getX2() {
+        return x2;
     }
 
     public void setX2(double x2) {
         this.x2 = x2;
     }
 
+
+    public double getY2() {
+        return y2;
+    }
+
     public void setY2(double y2) {
         this.y2 = y2;
+    }
+
+    public double getX3() {
+        return x3;
     }
 
     public void setX3(double x3) {
         this.x3 = x3;
     }
 
+    public double getY3() {
+        return y3;
+    }
+
     public void setY3(double y3) {
         this.y3 = y3;
     }
 
-    public double getDifferenceBetweenMaxAndMin(double coordinate1, double coordinate2, double coordinate3) {
+    private static double getDifferenceBetweenMaxAndMin(double coordinate1, double coordinate2, double coordinate3) {
         return Math.max(coordinate3, Math.max(coordinate1, coordinate2)) - Math.min(coordinate3, Math.min(coordinate1, coordinate2));
     }
 
-    public double getSideLength(double x1, double x2, double y1, double y2) {
+    private static double getSideLength(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
@@ -95,7 +96,7 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "[Треугольник площадью " + getArea() + " c периметром = " + getPerimeter() + ", высотой = " + getHeight() + ", шириной = " + getWidth() + "]";
+        return "[Треугольник высотой = " + getHeight() + " шириной = " + getWidth() + " площадью " + getArea() + " c периметром = " + getPerimeter() + "]";
     }
 
     @Override
