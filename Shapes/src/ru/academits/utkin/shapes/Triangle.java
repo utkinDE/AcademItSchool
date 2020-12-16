@@ -41,7 +41,6 @@ public class Triangle implements Shape {
         this.x2 = x2;
     }
 
-
     public double getY2() {
         return y2;
     }
@@ -91,12 +90,13 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        return getSideLength(x1, x2, y1, y2) + getSideLength(x2, x3, y2, y3) + getSideLength(x1, x3, y1, y3);
+        return getSideLength(x1, y1, x2, y2) + getSideLength(x2, y2, x3, y3) + getSideLength(x1, y1, x3, y3);
     }
 
     @Override
     public String toString() {
-        return "[Треугольник высотой = " + getHeight() + " шириной = " + getWidth() + " площадью " + getArea() + " c периметром = " + getPerimeter() + "]";
+        return "[Треугольник высотой = " + getHeight() + " шириной = " + getWidth() + " площадью " + getArea() + " c периметром = " + getPerimeter() + "]"
+                + " С вершинами: " + "\nA (" + x1 + ";" + y1 + ")\n" + "B (" + x2 + ";" + y2 + ")\n" + "C (" + x3 + ";" + y3 + ")";
     }
 
     @Override
@@ -113,7 +113,6 @@ public class Triangle implements Shape {
 
         return x1 == triangle.x1 && x2 == triangle.x2 && x3 == triangle.x3 && y1 == triangle.y1 && y2 == triangle.y2 && y3 == triangle.y3;
     }
-
 
     @Override
     public int hashCode() {
