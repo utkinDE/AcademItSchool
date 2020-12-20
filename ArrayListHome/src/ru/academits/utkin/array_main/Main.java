@@ -25,7 +25,6 @@ public class Main {
 
     public static ArrayList<String> getStringsFromFile(String fileName) throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
-
             ArrayList<String> list = new ArrayList<>();
 
             while (scanner.hasNextLine()) {
